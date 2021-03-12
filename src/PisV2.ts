@@ -32,8 +32,14 @@ export class PISV2 {
    * @param {object} payload
    * @returns {Promise<object>}
    */
-  public async connect(accessToken: string, payload: object, state: string): Promise<IPisV2Connect> {
-    const url = `${Endpoints.PISV2}/connect?state=${state}`;
+  public async connect(
+    accessToken: string,
+    payload: object,
+    connectConfig: { state: string; redirect_uri?: string; origin_uri?: string },
+  ): Promise<IPisV2Connect> {
+    const url = `${Endpoints.PISV2}/connect?state=${connectConfig.state}${
+      connectConfig.redirect_uri ? `&redirect_uri=${encodeURIComponent(connectConfig.redirect_uri)}` : ''
+    }${connectConfig.origin_uri ? `&origin_uri=${encodeURIComponent(connectConfig.origin_uri)}` : ''}`;
 
     const headers = apiService.getHeaders('post', url, accessToken, this.config, payload);
 
