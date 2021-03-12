@@ -1,7 +1,15 @@
 import * as UtilsCrypto from './utils/Crypto.js';
 import { BaseUrls } from './utils/URLBuilders/BaseUrls';
 import * as connectService from './services/ConnectService';
-import { IPisSetup, IPisConnectConfig, IAisConnectConfig, IPaymentPayload, IData, IAttributes, IMeta } from './interfaces/connect/ConnectInterface';
+import {
+  IPisSetup,
+  IPisConnectConfig,
+  IAisConnectConfig,
+  IPaymentPayload,
+  IData,
+  IAttributes,
+  IMeta,
+} from './interfaces/connect/ConnectInterface';
 import { ISessionPayload } from './interfaces/pis/PisInterface';
 import { IFintectureConfig } from './interfaces/ConfigInterface';
 import { Constants } from './utils/Constants.js';
@@ -45,7 +53,7 @@ export class Connect {
       country: connectConfig.country,
       date: headers['Date'],
       request_id: headers['X-Request-ID'],
-      provider: connectConfig.provider
+      provider: connectConfig.provider,
     };
 
     if (accessToken) {
@@ -59,14 +67,13 @@ export class Connect {
       this.config.env === Constants.SANDBOXENVIRONMENT
         ? BaseUrls.FINTECTURECONNECTURL_SBX
         : BaseUrls.FINTECTURECONNECTURL_PRD
-      }/ais/${psuType}/${country}`;
+    }/ais/${psuType}/${country}`;
 
     const connect = {
       url: `${url}?config=${Buffer.from(JSON.stringify(config)).toString('base64')}`,
-    }
+    };
 
     return connect;
-
   }
 
   /**
@@ -85,7 +92,13 @@ export class Connect {
 
     const sessionPayload: ISessionPayload = this._buildSessionPayload(prepare);
 
-    const headers: any = this._buildHeaders(accessToken, 'post', sessionPayload, this.config.private_key, this.signatureType);
+    const headers: any = this._buildHeaders(
+      accessToken,
+      'post',
+      sessionPayload,
+      this.config.private_key,
+      this.signatureType,
+    );
 
     const config: IPisConnectConfig = {
       app_id: this.config.app_id,
@@ -100,19 +113,19 @@ export class Connect {
       country: connectConfig.country,
       date: headers['Date'],
       request_id: headers['X-Request-ID'],
-      provider:  connectConfig.provider
+      provider: connectConfig.provider,
     };
 
     const url = `${
       this.config.env === Constants.SANDBOXENVIRONMENT
         ? BaseUrls.FINTECTURECONNECTURL_SBX
         : BaseUrls.FINTECTURECONNECTURL_PRD
-      }/pis`;
+    }/pis`;
 
     const connect = {
       url: `${url}?config=${Buffer.from(JSON.stringify(config)).toString('base64')}`,
-      session_id: prepare.meta.session_id
-    }
+      session_id: prepare.meta.session_id,
+    };
 
     return connect;
   }
@@ -143,11 +156,10 @@ export class Connect {
     return connectConfig as IPisSetup;
   }
 
-
   private _buildHeaders(accessToken: string, method: string, payload: any, privateKey: string, algorithm: string): any {
     const headers = apiService.getHeaders(method, '', accessToken, this.config, payload);
-    const signingString = UtilsCrypto.buildSigningString(headers, Constants.CONNECTHEADERPARAMETERLIST)
-    headers["Signature"] = UtilsCrypto.signPayload(signingString, this.config.private_key);
+    const signingString = UtilsCrypto.buildSigningString(headers, Constants.CONNECTHEADERPARAMETERLIST);
+    headers['Signature'] = UtilsCrypto.signPayload(signingString, this.config.private_key);
     return headers;
   }
 
@@ -168,7 +180,7 @@ export class Connect {
       psu_email: payment.customer_email,
       psu_ip: payment.customer_ip,
       psu_phone: payment.customer_phone,
-      psu_address: payment.customer_address
+      psu_address: payment.customer_address,
     };
 
     const data: IData = {
@@ -192,13 +204,13 @@ export class Connect {
       data: {
         attributes: {
           amount: payment.data.attributes.amount,
-          currency: payment.data.attributes.currency
-        }
-      }
+          currency: payment.data.attributes.currency,
+        },
+      },
     } as ISessionPayload;
 
     if (payment.data.attributes.beneficiary) {
-      payload.data.attributes.beneficiary = {name: payment.data.attributes.beneficiary.name};
+      payload.data.attributes.beneficiary = { name: payment.data.attributes.beneficiary.name };
     }
 
     if (payment.data.attributes.execution_date) {
