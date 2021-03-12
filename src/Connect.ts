@@ -14,10 +14,12 @@ import { ISessionPayload } from './interfaces/pis/PisInterface';
 import { IFintectureConfig } from './interfaces/ConfigInterface';
 import { Constants } from './utils/Constants.js';
 import { PIS } from './Pis';
+import { PISV2 } from './PisV2';
 import * as apiService from './services/ApiService';
 
 export class Connect {
   public pis: PIS;
+  public pisV2: PISV2;
   public axios: any;
   public config: IFintectureConfig;
   public connectConfig: IPisSetup;
@@ -26,6 +28,7 @@ export class Connect {
 
   constructor(config: IFintectureConfig) {
     this.pis = new PIS(config);
+    this.pisV2 = new PISV2(config);
     this.axios = connectService;
     this.config = config;
     this.signatureType = 'rsa-sha256';
@@ -126,6 +129,23 @@ export class Connect {
       url: `${url}?config=${Buffer.from(JSON.stringify(config)).toString('base64')}`,
       session_id: prepare.meta.session_id,
     };
+
+    return connect;
+  }
+
+  /**
+   * Generates a V2 connect URL based on the PIS parameters
+   *
+   * @param {string} accessTOken
+   * @param {payment} State
+   */
+  public async getPisV2Connect(accessToken: string, connectConfig: any) {
+    this.config = this._validateConfigIntegrity(this.config);
+    this.connectConfig = this._validatePisConnectConfigIntegrity(connectConfig);
+
+    const paymentPayload: IPaymentPayload = this._buildPaymentPayload(connectConfig);
+
+    const connect = await this.pisV2.connect(accessToken, paymentPayload, connectConfig.state);
 
     return connect;
   }

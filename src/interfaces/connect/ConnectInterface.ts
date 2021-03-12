@@ -119,6 +119,13 @@ export interface IPisConnect {
   session_id: string;
 }
 
+export interface IPisV2Connect {
+  meta: {
+    url: string;
+    session_id: string;
+  };
+}
+
 export interface IAisConnect {
   url: string;
 }

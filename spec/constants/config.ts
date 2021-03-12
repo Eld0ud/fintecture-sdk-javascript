@@ -1,13 +1,13 @@
 /**
  * TEST constants
- * 
+ *
  * @class TestConfig
  */
 
 export class TestConfig {
-    public static readonly appIdOpenbanking: string = '8687cc56-22be-4ef3-946f-4b52b83008b0';
-    public static readonly appSecretOpenbanking: string = '7f493c9a-f512-48d7-849d-29a1a6ad73ea';
-    public static readonly appPrivKeyOpenbanking: string = `-----BEGIN PRIVATE KEY-----
+  public static readonly appIdOpenbanking: string = '8687cc56-22be-4ef3-946f-4b52b83008b0';
+  public static readonly appSecretOpenbanking: string = '7f493c9a-f512-48d7-849d-29a1a6ad73ea';
+  public static readonly appPrivKeyOpenbanking: string = `-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCe6S+EFcQGpKKD
 Kyk5jr0OUED6uuK9rnadkPHq6WkFUIIEZ+xjcL9HHIRVzI/PTWvb6SWc7pqXNAht
 GQL43JKjqh5Itm4ml9Rrs08UeEBmo1K4pCQGXGn9UqLHfIGpHznlhwhq2BUV3HaU
@@ -35,10 +35,10 @@ lVy/uQC4ge1dAYhcvxMNNCJ2mszxP5hW5LqCrkHj+9SULrHxvkYZHSKGcMVpiEq8
 IH5SfaI3mb4YDzgCMjdhj8G5m+yUZ+UKncPcQ0+iRT8O2IqQp2c1Ut9qBuSJZh43
 HoxR9hrXXccObKIbRBb1zA==
 -----END PRIVATE KEY-----`;
-    public static readonly appRedirectUri: string = 'https://www.fintecture.com';
-    public static readonly appIdMerchant: string = 'e02a94ed-ca47-4ece-b641-82d2bf658288';
-    public static readonly appSecretMerchant: string = '7ad7b202-dc68-4cd2-ae05-4d338316972d';
-    public static readonly appPrivKeyMerchant: string = `-----BEGIN PRIVATE KEY-----
+  public static readonly appRedirectUri: string = 'https://www.fintecture.com';
+  public static readonly appIdMerchant: string = 'e02a94ed-ca47-4ece-b641-82d2bf658288';
+  public static readonly appSecretMerchant: string = '7ad7b202-dc68-4cd2-ae05-4d338316972d';
+  public static readonly appPrivKeyMerchant: string = `-----BEGIN PRIVATE KEY-----
 MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDMTItyD1NiVhMu
 LVfy9Bh7bTBbXwGN054wERgzdJOxdOYHdM6uMtds41HnS+nyXmLgZLUg4PvJSo+Y
 nUxjcQNwyh38tFw9Qa6hHw+UlbYX3zyaY2tVUyzYgYxrt3fFctoYRu0c+2+z5BV3
