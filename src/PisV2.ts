@@ -33,7 +33,7 @@ export class PISV2 {
    * @returns {Promise<object>}
    */
   public async connect(accessToken: string, payload: object, state: string): Promise<IPisV2Connect> {
-    const url = `${Endpoints.PIS}/connect?state=${state}`;
+    const url = `${Endpoints.PISV2}/connect?state=${state}`;
 
     const headers = apiService.getHeaders('post', url, accessToken, this.config, payload);
 
