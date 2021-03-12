@@ -11,12 +11,12 @@ export class Signature {
   }
 
   /**
-   * Generates a V2 connect URL based on the PIS parameters
+   * Checks request signature
    *
    * @param {string} accessTOken
    * @param {payment} State
    */
-  public authenticateRequest(req): boolean {
+  public authenticateRequest(req): void {
     const headers = req.headers;
     const signature = headers.signature;
     try {
@@ -31,7 +31,7 @@ export class Signature {
         .update(rawBody)
         .digest('base64');
       assert.ok(headers.digest === `SHA-256=${digest}`, 'The digest should be valid');
-      const PRIVATE_KEY = `PRIVATE_KEY_HERE`; // <===== UPDATE THIS
+      const PRIVATE_KEY = this.config.private_key;
 
       assert.ok(
         this._verifySignature(
@@ -43,9 +43,8 @@ export class Signature {
         'The signature should be valid',
       );
     } catch (err) {
-      return false;
+      throw err;
     }
-    return true;
   }
 
   private _verifySignature(expectedSignature, headers, signatureParameters, privateKey) {

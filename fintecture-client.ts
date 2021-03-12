@@ -155,7 +155,7 @@ export class FintectureClient {
     return this.ais.deleteCustomer(accessToken, customerId);
   }
 
-  public checkRequestSignature(req: any): boolean {
+  public checkRequestSignature(req: any): void {
     return this.signature.authenticateRequest(req);
   }
 
