@@ -68,9 +68,10 @@ export class Signature {
       return signatureComponents;
     }
     pattern.lastIndex = 0;
-    let result = null;
-    while ((result = pattern.exec(signature)) !== null) {
+    let result = pattern.exec(signature);
+    while (result !== null) {
       signatureComponents.set(result[1], result[2]);
+      result = pattern.exec(signature);
     }
     return signatureComponents;
   }
