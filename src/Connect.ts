@@ -145,7 +145,7 @@ export class Connect {
 
     const paymentPayload: IPaymentPayload = this._buildPaymentPayload(connectConfig);
 
-    const connect = await this.pisV2.connect(accessToken, paymentPayload, connectConfig.state);
+    const connect = await this.pisV2.connect(accessToken, paymentPayload, connectConfig);
 
     return connect;
   }
