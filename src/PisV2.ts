@@ -35,13 +35,22 @@ export class PISV2 {
   public async connect(
     accessToken: string,
     payload: object,
-    connectConfig: { state: string; redirect_uri?: string; origin_uri?: string },
+    connectConfig: {
+      state: string;
+      redirect_uri?: string;
+      origin_uri?: string;
+      psu_type?: 'all' | 'corporate' | 'retail';
+    },
   ): Promise<IPisV2Connect> {
     const url = `${Endpoints.PISV2}/connect?state=${connectConfig.state}${
       connectConfig.redirect_uri ? `&redirect_uri=${encodeURIComponent(connectConfig.redirect_uri)}` : ''
     }${connectConfig.origin_uri ? `&origin_uri=${encodeURIComponent(connectConfig.origin_uri)}` : ''}`;
 
     const headers = apiService.getHeaders('post', url, accessToken, this.config, payload);
+
+    if (connectConfig.psu_type) {
+      headers['x-psu_type'] = connectConfig.psu_type;
+    }
 
     const response = await this.axiosInstance.post(url, payload, { headers });
     return response.data;
