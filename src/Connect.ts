@@ -169,9 +169,9 @@ export class Connect {
     if (!connectConfig.customer_email && this.config.env === Constants.PRODUCTIONENVIRONMENT) {
       throw Error('customer email must be set');
     }
-    if (!connectConfig.customer_ip && this.config.env === Constants.PRODUCTIONENVIRONMENT) {
-      throw Error('customer ip must be set');
-    }
+    // if (!connectConfig.customer_ip && this.config.env === Constants.PRODUCTIONENVIRONMENT) {
+    //   throw Error('customer ip must be set');
+    // }
 
     return connectConfig as IPisSetup;
   }
